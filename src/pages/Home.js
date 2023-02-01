@@ -1,4 +1,5 @@
 import React from "react";
+import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import chatIcon from "../assets/icon-chat.png";
 import moneyIcon from "../assets/icon-money.png";
@@ -7,6 +8,7 @@ import securityIcon from "../assets/icon-security.png";
 const Home = () => {
 	return (
 		<>
+            <Navbar />
 			<main>
 				<div className="hero">
 					<section className="hero-content">
