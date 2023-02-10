@@ -1,9 +1,32 @@
-
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { login } from "../store/slices/authThunk";
+import { saveUser } from "../utils/HelperFunctions";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 
 
 const Login = () => {
+	const [email, setEmail] = useState(localStorage.getItem("user") || "");
+	const [password, setPassword] = useState("");
+	const [rememberMe, setRememberMe] = useState(false);
+	const dispatch = useDispatch();
+	const navigate = useNavigate();
+
+	const handleLogin = async (e) => {
+		e.preventDefault();
+		await dispatch(login({ email, password }));
+		if (rememberMe) {
+			saveUser(email);
+		}
+		checkToken();
+	};
+	const checkToken = () => {
+		if (localStorage.token) {
+			navigate("/dashboard");
+		}
+	};
 
     return (
 		<>
@@ -18,6 +41,8 @@ const Login = () => {
 							<input
 								type="text"
 								id="username"
+								defaultValue={email}
+								onChange={(e) => setEmail(e.target.value)}
 							/>
 						</div>
 						<div className="input-wrapper">
@@ -25,17 +50,19 @@ const Login = () => {
 							<input
 								type="password"
 								id="password"
+								onChange={(e) => setPassword(e.target.value)}
 							/>
 						</div>
 						<div className="input-remember">
 							<input
 								type="checkbox"
 								id="remember-me"
+								onClick={() => setRememberMe(!rememberMe)}
 							/>
 							<label htmlFor="remember-me">Remember me</label>
 						</div>
 
-						<button className="sign-in-button">
+						<button onClick={handleLogin} className="sign-in-button">
 							Sign In
 						</button>
 					</form>
