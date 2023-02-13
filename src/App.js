@@ -5,7 +5,7 @@ import Login from "../src/pages/Login";
 import Dashboard from "../src/pages/Dashboard";
 
 
-import './index.css';
+// import './index.css';
 
 function App() {
   return (

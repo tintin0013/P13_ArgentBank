@@ -7,7 +7,7 @@ import App from './App';
 import store from "./store/store";
 import { getToken } from "./utils/HelperFunctions";
 import { fetchUserData } from "./store/slices/authThunk";
-import './index.css';
+import './styles/index.css';
 
 if (getToken()) {
 	store.dispatch(fetchUserData());
