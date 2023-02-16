@@ -1,7 +1,6 @@
 /* eslint-disable no-empty-pattern */
-
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchUserData, login } from "./authThunk";
+import { fetchUserData, login, signOut } from "./authThunk";
 
 const initialState = {
 	token: null,
@@ -14,9 +13,13 @@ export const authSlice = createSlice({
 	initialState,
 	reducers: {},
 	
-
-    
+	
 	extraReducers: {
+		[signOut.fulfilled]: (state) => {
+			state.loading = true;
+			state.userData = {};
+			state.token = null;
+		},
 		[login.pending]: (state) => {
 			state.loading = true;
 		},

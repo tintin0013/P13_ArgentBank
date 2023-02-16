@@ -22,6 +22,7 @@ const Login = () => {
 		}
 		checkToken();
 	};
+	
 	const checkToken = () => {
 		if (localStorage.token) {
 			navigate("/dashboard");

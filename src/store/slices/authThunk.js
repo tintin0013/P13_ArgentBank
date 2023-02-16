@@ -16,15 +16,13 @@ export const fetchUserData = createAsyncThunk(
 					Authorization: "Bearer" + accesToken,
 				},
 			};
-			console.log('payload', payload);
 			const response = await axios(api + "profile", payload);
-			console.log('accesToken', accesToken);
-			console.log('response', response);
 			return {
 				userData: response.data.body,
 				accesToken: accesToken,
 			};
 		} catch (e) {
+			removeToken();
 			return rejectWithValue("");
 		}
 	}
@@ -43,4 +41,5 @@ export const login = createAsyncThunk("auth/login", async (payload) => {
 export const signOut = createAsyncThunk("auth/signOut", async () => {
 	removeToken();
 });
+
 

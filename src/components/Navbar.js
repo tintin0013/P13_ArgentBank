@@ -14,15 +14,12 @@ const NavBar = () => {
     const navigate = useNavigate();
 
 
-
     const handleLogOut = () => {
 		dispatch(signOut());
 		navigate("/");
 	};
 
-
     return (
-
 		<>
         <nav className="main-nav">
             <NavLink to="/">

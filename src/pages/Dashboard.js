@@ -3,7 +3,8 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
-import { fetchUserData} from "../store/slices/authThunk";
+import { fetchUserData } from "../store/slices/authThunk";
+import Loading from "../components/Loading";
 
 const Dashboard = () => {
 	const profile = useSelector((state) => state.auth.userData);
@@ -18,15 +19,16 @@ const Dashboard = () => {
 		SetIsLoading(false);
 	}, [isLoading]);
 
-
 	const handleEdit = () => {
 		setUpdatedFirstName(profile.firstName);
 		setUpdatedLastName(profile.lastName);
 		setEdit(true);
 	};
+	
 
 	return (
 		<>
+			{isLoading && <Loading />}
 			{!isLoading && (
 				<>
 					<Navbar />
@@ -58,10 +60,10 @@ const Dashboard = () => {
 										onChange={(e) => setUpdatedLastName(e.target.value)}
 									/>
 								</h1>
-								<button className="edit-button">
+								<button className="edit-button" >
 									Save
 								</button>
-								<button className="edit-button">
+								<button className="edit-button" >
 									Cancel
 								</button>
 							</div>
