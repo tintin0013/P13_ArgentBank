@@ -1,4 +1,4 @@
-[![My Skills](https://skills.thijs.gg/icons?i=html,css,js,nodejs,mongodb,react)](https://skills.thijs.gg)
+[![My Skills](https://skills.thijs.gg/icons?i=html,css,js,nodejs,mongodb,react,redux)](https://skills.thijs.gg)
 
 ![Getting Started](./src/assets/argentBankLogo.png)
 
