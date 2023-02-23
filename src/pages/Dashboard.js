@@ -3,13 +3,13 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
-import { fetchUserData } from "../store/slices/authThunk";
+import { fetchUserData, updateUserData } from "../store/slices/authThunk";
 import Loading from "../components/Loading";
 
 const Dashboard = () => {
 	const profile = useSelector((state) => state.auth.userData);
 	const dispatch = useDispatch();
-	const [edit, setEdit] = useState(false);
+	const [isEditMode, setIsEditMode] = useState(false);
 	const [isLoading, SetIsLoading] = useState(true);
 	const [updatedFirstName, setUpdatedFirstName] = useState("");
 	const [updatedLastName, setUpdatedLastName] = useState("");
@@ -19,12 +19,28 @@ const Dashboard = () => {
 		SetIsLoading(false);
 	}, [isLoading]);
 
+		//On click on edit button, copy the value from redux to useState
 	const handleEdit = () => {
 		setUpdatedFirstName(profile.firstName);
 		setUpdatedLastName(profile.lastName);
-		setEdit(true);
+		setIsEditMode(true);
 	};
-	
+
+	const handleEditCancel = () => {
+		setIsEditMode(false);
+	};
+		
+	//On save, send updated datas to middleware
+	async function handleChange(e) {
+		e.preventDefault();
+
+		const updatedProfile = {
+			firstName: updatedFirstName,
+			lastName: updatedLastName,
+		};
+		dispatch(updateUserData(updatedProfile));
+		setIsEditMode(false);
+	}
 
 	return (
 		<>
@@ -33,7 +49,7 @@ const Dashboard = () => {
 				<>
 					<Navbar />
 					<main className="main bg-dark">
-						{!edit ? (
+						{!isEditMode ? (
 							<div className="header">
 								<h1>
 									Welcome back
@@ -60,10 +76,10 @@ const Dashboard = () => {
 										onChange={(e) => setUpdatedLastName(e.target.value)}
 									/>
 								</h1>
-								<button className="edit-button" >
+								<button className="edit-button" onClick={handleChange}>
 									Save
 								</button>
-								<button className="edit-button" >
+								<button className="edit-button" onClick={handleEditCancel}>
 									Cancel
 								</button>
 							</div>
