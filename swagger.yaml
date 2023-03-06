@@ -33,7 +33,7 @@ paths:
         '200':
           description: User transactions retrieved successfully
           schema:
-            $ref: '#/definitions/TransactionsResponse'
+            $ref: '#/definitions/AllTransactionsResponse'
         '400':
           description: Transaction not found
         '500':
@@ -60,7 +60,7 @@ paths:
           description: Update user profile attributes
           required: true
           schema:
-            $ref: '#/definitions/TransactionDescription'
+            $ref: '#/definitions/CreateTransactionDescription'
       responses:
         '201':
           description: Successfull Operation
@@ -144,6 +144,48 @@ securityDefinitions:
     name: Authorization
     in: header
 definitions:
+  AllTransactionsResponse:
+    type: object
+    properties:
+      dateFrom:
+        type: string
+        description: first day of month
+      dateTo: 
+        type: string
+        description: present day
+      status:
+        type: integer
+      message:
+        type: string
+      body:
+        type: array
+        items:
+          type: object
+          properties:
+            id:
+              type: string
+              description: user id
+            date:
+              type: string
+              description: transaction date
+            description:
+              type: string
+              description: transaction description
+            amount:
+              type: number
+              description: transaction amount
+            balance:
+              type: number
+              description: transaction description
+            transactionType:
+              type: string
+              description: transaction type
+            category:
+              type: string
+              description: transaction category
+            note:
+              type: string
+              description: transaction note
   TransactionsResponse:
     type: object
     properties:
@@ -180,6 +222,24 @@ definitions:
       note:
         type: string
         description: user's notes for transaction
+  CreateTransactionDescription:
+    type: object
+    properties:
+      date:
+        type: string
+        description: transaction date
+      description:
+        type: string
+        description: transaction description
+      transactionType:
+        type: string
+        description: transaction type
+      category:
+        type: string
+        description: transaction category
+      note:
+          type: string
+          description: transaction note
   TransactionDescription:
     type: object
     properties:
